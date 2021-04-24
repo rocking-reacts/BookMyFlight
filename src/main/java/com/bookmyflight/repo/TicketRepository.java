@@ -1,5 +1,9 @@
 package com.bookmyflight.repo;
 
-public interface TicketRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bookmyflight.entity.Ticket;
+
+public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
 }
