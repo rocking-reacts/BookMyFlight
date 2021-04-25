@@ -5,14 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="bookings")
 public class Booking {
 	@Id
 	@GeneratedValue(strategy =  GenerationType.AUTO)
 	private int bookingId;
 	@Column(name="seats")
-	private int numberOfSeatsBooked;
+	private int numberOfSeatsToBook;
 	private int payStatus;
 	//Mappings yet to be added
 	
@@ -22,11 +24,12 @@ public class Booking {
 	public void setBookingId(int bookingId) {
 		this.bookingId = bookingId;
 	}
-	public int getNumberOfSeatsBooked() {
-		return numberOfSeatsBooked;
+
+	public int getNumberOfSeatsToBook() {
+		return numberOfSeatsToBook;
 	}
-	public void setNumberOfSeatsBooked(int numberOfSeatsBooked) {
-		this.numberOfSeatsBooked = numberOfSeatsBooked;
+	public void setNumberOfSeatsToBook(int numberOfSeatsToBook) {
+		this.numberOfSeatsToBook = numberOfSeatsToBook;
 	}
 	public int getPayStatus() {
 		return payStatus;
