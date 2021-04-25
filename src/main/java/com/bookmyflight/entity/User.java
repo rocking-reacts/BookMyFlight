@@ -10,10 +10,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user")
 public class User {
+	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="user_id")
-	private int uid;
 	@Column(name="user_name")
 	private String uname;
 	@Column(name="user_fullname")
@@ -30,19 +28,14 @@ public class User {
 	}
 	public User(int uid, String uname, String fname, String email, int phone, int isadmin) {
 		super();
-		this.uid = uid;
+		
 		this.uname = uname;
 		this.fname = fname;
 		this.email = email;
 		this.phone = phone;
 		this.isadmin = isadmin;
 	}
-	public int getUid() {
-		return uid;
-	}
-	public void setUid(int uid) {
-		this.uid = uid;
-	}
+	
 	public String getUname() {
 		return uname;
 	}
