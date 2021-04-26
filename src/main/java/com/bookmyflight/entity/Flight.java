@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="flights")
+@Table(name="flight")
 public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
