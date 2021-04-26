@@ -18,7 +18,6 @@ public class Passenger {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "pass_id")
 	private int pid;
 	@Column(name = "pass_name")
 	private String pname;

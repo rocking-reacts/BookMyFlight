@@ -16,12 +16,11 @@ import javax.persistence.Table;
  * Like User name,User Fullname, User phone number and User email.
  */
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
 	
 	@Id
-	@Column(name="user_name")
-	private String uname;
+	private String username;
 	
 	@Column(name="user_fullname")
 	private String fname;
@@ -36,17 +35,17 @@ public class User {
 	
 	
 	
-	@OneToMany
-	@JoinColumn(name = "bookingId")
-	private List<Booking> booking = new ArrayList<Booking>();
-	
+//	@OneToMany
+//	@JoinColumn(name = "bookingid")
+//	private List<Booking> booking = new ArrayList<Booking>();
+//	
 	public User() {
 		
 	}
-	public User(int uid, String uname, String fname, String email, int phone, int isadmin) {
+	public User(int uid, String username, String fname, String email, int phone, int isadmin) {
 		super();
 		
-		this.uname = uname;
+		this.username = username;
 		this.fname = fname;
 		this.email = email;
 		this.phone = phone;
@@ -54,10 +53,10 @@ public class User {
 	}
 	
 	public String getUname() {
-		return uname;
+		return username;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setUname(String username) {
+		this.username = username;
 	}
 	public String getFname() {
 		return fname;
@@ -90,12 +89,12 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Booking> getBooking() {
-		return booking;
-	}
-	public void setBooking(List<Booking> booking) {
-		this.booking = booking;
-	}
+//	public List<Booking> getBooking() {
+//		return booking;
+//	}
+//	public void setBooking(List<Booking> booking) {
+//		this.booking = booking;
+//	}
 
 }
  

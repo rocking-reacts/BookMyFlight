@@ -21,24 +21,24 @@ import org.hibernate.annotations.ManyToAny;
 public class Booking {
 	@Id
 	@GeneratedValue(strategy =  GenerationType.AUTO)
-	private int bookingId;
+	private int bookingid;
 	@Column(name="seats")
 	private int numberOfSeatsToBook;
 	private int payStatus;
 	
 	@OneToOne
-	@JoinColumn(name = "flightNumber")
+	@JoinColumn(name = "flight_number")
 	private Flight flight;
 	
 	@OneToMany
-	@JoinColumn(name = "pass_id")
+	@JoinColumn(name = "pid")
 	private List<Passenger> passengers = new ArrayList<Passenger>();
 	
 	public int getBookingId() {
-		return bookingId;
+		return bookingid;
 	}
 	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+		this.bookingid = bookingId;
 	}
 
 	public int getNumberOfSeatsToBook() {

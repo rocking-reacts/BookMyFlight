@@ -21,15 +21,14 @@ public class Ticket {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "ticket_number")
-	private int ticketNumber;
+	private int ticketnumber;
 	
 	@OneToOne
-	@JoinColumn(name = "user_name")
+	@JoinColumn(name = "username")
 	private User user;
 	
 	@OneToOne
-	@JoinColumn(name = "bookingId")
+	@JoinColumn(name = "bookingid")
 	private Booking booking;
 	
 	private LocalDate booking_date;
@@ -38,21 +37,21 @@ public class Ticket {
 	public Ticket() {
 	}
 
-	public Ticket(int ticket_number, LocalDate booking_date, double total_pay) {
+	public Ticket(int ticketnumber, LocalDate booking_date, double total_pay) {
 		super();
 	
-		this.ticketNumber = ticket_number;
+		this.ticketnumber = ticketnumber;
 		this.booking_date = booking_date;
 		this.total_pay = total_pay;
 	}
 
 
 	public int getTicket_number() {
-		return ticketNumber;
+		return ticketnumber;
 	}
 
 	public void setTicket_number(int ticket_number) {
-		this.ticketNumber = ticket_number;
+		this.ticketnumber = ticket_number;
 	}
 
 	public LocalDate getBooking_date() {
@@ -71,13 +70,6 @@ public class Ticket {
 		this.total_pay = total_pay;
 	}
 
-	public int getTicketNumber() {
-		return ticketNumber;
-	}
-
-	public void setTicketNumber(int ticketNumber) {
-		this.ticketNumber = ticketNumber;
-	}
 
 	public User getUser() {
 		return user;
