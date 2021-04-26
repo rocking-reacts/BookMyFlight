@@ -49,7 +49,7 @@ public class User {
 	}
 	public User(int uid, String uname, String fname, String email, String phone, int isadmin, String password) {
 		super();
-		
+		this.userId=uid;
 		this.uname = uname;
 		this.fname = fname;
 		this.email = email;
