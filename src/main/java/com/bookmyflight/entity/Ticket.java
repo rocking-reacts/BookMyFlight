@@ -46,15 +46,6 @@ public class Ticket {
 		this.total_pay = total_pay;
 	}
 
-
-	public int getTicket_number() {
-		return ticketNumber;
-	}
-
-	public void setTicket_number(int ticket_number) {
-		this.ticketNumber = ticket_number;
-	}
-
 	public LocalDate getBooking_date() {
 		return booking_date;
 	}

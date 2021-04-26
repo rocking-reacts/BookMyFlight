@@ -8,7 +8,7 @@ public interface BookingService {
 	
 	int addBooking(Booking booking);
 	
-	void addPassenger(Passenger passenger);
+	void addPassenger(Passenger passenger, int bookingId);
 	
-	int generateTicket(Ticket ticket);
+	int generateTicket(Ticket ticket, String username, int bookingId);
 }
