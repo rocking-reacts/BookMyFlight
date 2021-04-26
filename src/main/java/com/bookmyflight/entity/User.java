@@ -2,11 +2,16 @@ package com.bookmyflight.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+/**
+ * @author Sahithi Kondeti
+ * User entity stores user information
+ * Like User name,User Fullname, User phone number and User email.
+ */
 @Entity
 @Table(name="user")
 public class User {
@@ -14,14 +19,23 @@ public class User {
 	@Id
 	@Column(name="user_name")
 	private String uname;
+	
 	@Column(name="user_fullname")
 	private String fname;
+	
 	@Column(name="email")
 	private String email;
+	
 	@Column(name="phone")
 	private int phone;
+	
 	@Column(name="isadmin")
 	private int isadmin;
+	
+	
+	@OneToOne
+	//@JoinColumn(name = "bookingId")
+	private Booking booking;
 	
 	public User() {
 		
