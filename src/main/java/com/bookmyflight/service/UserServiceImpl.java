@@ -12,6 +12,7 @@ import com.bookmyflight.repo.UserRepository;
  * UserServiceImpl will perform operations:
  * Like creating User and fetching the user by user name.
  */
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -19,14 +20,14 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userrepo;
 	
 	@Override
-	public String createUser(User user) throws UserException {
+	public int createUser(User user) throws UserException {
 		userrepo.save(user);
-		return user.getUname();
+		return user.getUserId();
 	}
 
 	@Override
-	public User fetchUserByUsername(String username) throws UserException {
-		return userrepo.findById(username).get();
+	public User fetchUserById(int user_id) throws UserException {
+		return userrepo.findById(user_id).get();
 	}
 
 }

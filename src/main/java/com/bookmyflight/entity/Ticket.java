@@ -25,11 +25,11 @@ public class Ticket {
 	private int ticketNumber;
 	
 	@OneToOne
-	@JoinColumn(name = "user_name")
+	@JoinColumn(name = "user_id")
 	private User user;
 	
 	@OneToOne
-	@JoinColumn(name = "bookingId")
+	@JoinColumn(name = "booking_id")
 	private Booking booking;
 	
 	private LocalDate booking_date;

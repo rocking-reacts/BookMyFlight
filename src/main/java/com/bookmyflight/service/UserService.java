@@ -5,9 +5,9 @@ import com.bookmyflight.exception.UserException;
 
 public interface UserService {
 	
-	 String createUser(User user) throws UserException;
+	 int createUser(User user) throws UserException;
 	
-	 User fetchUserByUsername(String username) throws UserException;
+	 User fetchUserById(int user_id) throws UserException;
 	
 	
 }

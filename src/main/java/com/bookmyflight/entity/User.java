@@ -1,10 +1,15 @@
 package com.bookmyflight.entity;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -20,6 +25,10 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
+	private int userId;
+	
 	@Column(name="user_name")
 	private String uname;
 	
@@ -28,22 +37,17 @@ public class User {
 	
 	private String email;
 	
-	private int phone;
+	private String phone;
 	
 	private int isadmin;
 	
 	private String password;
 	
 	
-	
-	@OneToMany
-	@JoinColumn(name = "bookingId")
-	private List<Booking> booking = new ArrayList<Booking>();
-	
 	public User() {
 		
 	}
-	public User(int uid, String uname, String fname, String email, int phone, int isadmin, String password) {
+	public User(int uid, String uname, String fname, String email, String phone, int isadmin, String password) {
 		super();
 		
 		this.uname = uname;
@@ -54,6 +58,12 @@ public class User {
 		this.password= password;
 	}
 	
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 	public String getUname() {
 		return uname;
 	}
@@ -72,10 +82,10 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 	public int getIsadmin() {
@@ -91,12 +101,7 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public List<Booking> getBooking() {
-		return booking;
-	}
-	public void setBooking(List<Booking> booking) {
-		this.booking = booking;
-	}
+	
 
 }
  
