@@ -64,7 +64,7 @@ public class FlightServiceImpl implements FlightService {
 		
 	}
 
-	@Transactional
+	@Transactional  
 	public int updateFlight(Flight flight) throws FlightException {
 		
 		List<Flight> flights=(List)fetchAll();

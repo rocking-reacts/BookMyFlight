@@ -45,7 +45,7 @@ public class FlightController {
 		return fservice.fetchAll();	
 	}
 	
-	@GetMapping(value="/fetch",produces="application/json")
+	@GetMapping(value="/fetch",produces="application/json")  
 	public Flight serachFlight(@RequestParam String source,@RequestParam String destination,@RequestParam String date) {
 		try {
 			LocalDate dt=LocalDate.parse(date);
