@@ -43,7 +43,7 @@ public class User {
 	public User() {
 		
 	}
-	public User(int uid, String uname, String fname, String email, int phone, int isadmin) {
+	public User(int uid, String uname, String fname, String email, int phone, int isadmin, String password) {
 		super();
 		
 		this.uname = uname;
@@ -51,6 +51,7 @@ public class User {
 		this.email = email;
 		this.phone = phone;
 		this.isadmin = isadmin;
+		this.password= password;
 	}
 	
 	public String getUname() {
