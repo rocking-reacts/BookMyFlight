@@ -43,13 +43,19 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public int generateTicket(Ticket ticket, String username, int bookingId) {
-		Booking booking = brepo.findById(bookingId).get();
-		User user = urepo.findById(username).get();
-		ticket.setBooking(booking);
-		ticket.setUser(user);
-	
-		trepo.save(ticket);
-		return ticket.getTicketNumber();
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
+//	@Override
+//	public int generateTicket(Ticket ticket, String username, int bookingId) {
+//		Booking booking = brepo.findById(bookingId).get();
+//		User user = urepo.findById(username).get();
+//		ticket.setBooking(booking);
+//		ticket.setUser(user);
+//	
+//		trepo.save(ticket);
+//		return ticket.getTicketNumber();
+//	}
 
 }
