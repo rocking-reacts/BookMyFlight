@@ -1,10 +1,13 @@
 package com.bookmyflight.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,19 +26,19 @@ public class User {
 	@Column(name="user_fullname")
 	private String fname;
 	
-	@Column(name="email")
 	private String email;
 	
-	@Column(name="phone")
 	private int phone;
 	
-	@Column(name="isadmin")
 	private int isadmin;
 	
+	private String password;
 	
-	@OneToOne
-	//@JoinColumn(name = "bookingId")
-	private Booking booking;
+	
+	
+	@OneToMany
+	@JoinColumn(name = "bookingId")
+	private List<Booking> booking = new ArrayList<Booking>();
 	
 	public User() {
 		
@@ -81,11 +84,18 @@ public class User {
 		this.isadmin = isadmin;
 	}
 	
-	
-	
-	
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public List<Booking> getBooking() {
+		return booking;
+	}
+	public void setBooking(List<Booking> booking) {
+		this.booking = booking;
+	}
 
 }
  

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="flights")
+@Table(name="flight")
 public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +28,8 @@ public class Flight {
 	private LocalTime departureTime;
 	private double price;
 	private int availableSeats;
+	
+	
 	public int getFlightNumber() {
 		return flightNumber;
 	}
