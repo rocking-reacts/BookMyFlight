@@ -26,13 +26,13 @@ public class Ticket {
 	
 	private int ticket_number;
 	
-	@OneToOne
-	@JoinColumn(name = "user_name")
-	private User user;
-	
-	@OneToOne
-	@JoinColumn(name = "bookingId")
-	private Booking booking;
+//	@OneToOne
+//	@JoinColumn(name = "user_name")
+//	private User user;
+//	
+//	@OneToOne
+//	@JoinColumn(name = "bookingId")
+//	private Booking booking;
 	
 	private LocalDate booking_date;
 	private double total_pay;
