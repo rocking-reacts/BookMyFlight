@@ -1,5 +1,21 @@
 package com.bookmyflight.service;
 
-public interface FlightService {
+import java.time.LocalDate;
+import java.util.Collection;
 
+import com.bookmyflight.entity.Flight;
+import com.bookmyflight.exception.FlightException;
+
+public interface FlightService {
+	
+	 int addFlight(Flight flight) throws FlightException;
+	
+	 Collection<Flight> fetchAll();
+	
+	 Flight fetchFlight(String source, String destination, LocalDate scheduleDate) 
+			throws FlightException;
+	
+	 int updateFlight(Flight flight) throws FlightException; //seatnotavailableexception
+	 
+	 void removeFlight(Flight flight) ;
 }

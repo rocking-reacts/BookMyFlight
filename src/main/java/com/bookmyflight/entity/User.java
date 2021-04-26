@@ -1,12 +1,20 @@
 package com.bookmyflight.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+/**
+ * @author Sahithi Kondeti
+ * User entity stores user information
+ * Like User name,User Fullname, User phone number and User email.
+ */
 @Entity
 @Table(name="user")
 public class User {
@@ -14,14 +22,23 @@ public class User {
 	@Id
 	@Column(name="user_name")
 	private String uname;
+	
 	@Column(name="user_fullname")
 	private String fname;
-	@Column(name="email")
+	
 	private String email;
-	@Column(name="phone")
+	
 	private int phone;
-	@Column(name="isadmin")
+	
 	private int isadmin;
+	
+	private String password;
+	
+	
+	
+	@OneToMany
+	@JoinColumn(name = "bookingId")
+	private List<Booking> booking = new ArrayList<Booking>();
 	
 	public User() {
 		
@@ -67,11 +84,18 @@ public class User {
 		this.isadmin = isadmin;
 	}
 	
-	
-	
-	
-	
-	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public List<Booking> getBooking() {
+		return booking;
+	}
+	public void setBooking(List<Booking> booking) {
+		this.booking = booking;
+	}
 
 }
  

@@ -25,6 +25,8 @@ public class Passenger {
 	private String gender;
 	private int age;
 	
+	
+	
 	public Passenger() {
 	}
 	

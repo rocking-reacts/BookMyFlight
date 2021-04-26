@@ -28,6 +28,8 @@ public class Flight {
 	private LocalTime departureTime;
 	private double price;
 	private int availableSeats;
+	
+	
 	public int getFlightNumber() {
 		return flightNumber;
 	}
