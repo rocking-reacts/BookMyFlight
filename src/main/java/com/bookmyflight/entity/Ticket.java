@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  * @author Ankita Yadav
@@ -24,13 +26,13 @@ public class Ticket {
 	
 	private int ticket_number;
 	
-	//@OneToOne
-	//@JoinColumn(name = "uname")
-	//private User user;
+	@OneToOne
+	@JoinColumn(name = "user_name")
+	private User user;
 	
-	//@OneToOne
-	//@JoinColunm(name = "booking_id")
-	//private Booking booking_id;
+	@OneToOne
+	@JoinColumn(name = "bookingId")
+	private Booking booking;
 	
 	private LocalDate booking_date;
 	private double total_pay;
