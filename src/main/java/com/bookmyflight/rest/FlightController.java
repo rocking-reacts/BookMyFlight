@@ -66,7 +66,7 @@ public class FlightController {
 	}
 	
 	@PutMapping(value="/update",produces="application/json")
-	public String updateDestination(@RequestBody Flight flight) {
+	public String updateFlight(@RequestBody Flight flight) {
 		try {
 			int id=fservice.updateFlight(flight);
 			return "Flight updated with id "+id;
