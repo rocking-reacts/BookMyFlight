@@ -3,6 +3,7 @@ package com.bookmyflight.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bookmyflight.bean.Login;
 import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.UserException;
 import com.bookmyflight.repo.UserRepository;
@@ -28,6 +29,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User fetchUserById(int user_id) throws UserException {
 		return userrepo.findById(user_id).get();
+	}
+
+	@Override
+	public User validate(Login login) {
+		// TODO Auto-generated method stub
+		User user=userrepo.findUser(login.getUsername(), login.getPassword());
+		return user;
 	}
 
 }

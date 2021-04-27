@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,15 +48,15 @@ public class FlightController {
 	}
 	
 	@GetMapping(value="/fetch",produces="application/json")  
-	public Flight serachFlight(@RequestParam String source,@RequestParam String destination,@RequestParam String date) {
+	public ResponseEntity<?> serachFlight(@RequestParam String source,@RequestParam String destination,@RequestParam String date) {
 		try {
 			LocalDate dt=LocalDate.parse(date);
 			Flight flight=fservice.fetchFlight(source, destination, dt);
-			return flight;
+			return new ResponseEntity<Flight>(flight,HttpStatus.OK);
 		} catch (FlightException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
 		}
 	}
 	

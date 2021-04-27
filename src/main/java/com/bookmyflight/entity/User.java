@@ -29,8 +29,8 @@ public class User {
 	@Column(name = "user_id")
 	private int userId;
 	
-	@Column(name="user_name")
-	private String uname;
+	
+	private String username;
 	
 	@Column(name="user_fullname")
 	private String fname;
@@ -47,10 +47,10 @@ public class User {
 	public User() {
 		
 	}
-	public User(int uid, String uname, String fname, String email, String phone, int isadmin, String password) {
+	public User(int uid, String username, String fname, String email, String phone, int isadmin, String password) {
 		super();
 		this.userId=uid;  
-		this.uname = uname;
+		this.username = username;
 		this.fname = fname;
 		this.email = email;
 		this.phone = phone;
@@ -65,10 +65,10 @@ public class User {
 		this.userId = userId;
 	}
 	public String getUname() {
-		return uname;
+		return username;
 	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setUname(String username) {
+		this.username = username;
 	}
 	public String getFname() {
 		return fname;
