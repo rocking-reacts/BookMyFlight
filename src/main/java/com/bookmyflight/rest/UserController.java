@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.bookmyflight.bean.Login;
 import com.bookmyflight.entity.User;
@@ -36,14 +37,20 @@ public class UserController {
 	@PostMapping(value = "/createuser",consumes = "application/json")
 	public String createUser(@RequestBody User user) throws UserException {
 		user.setUname(user.getUname());
+		
 		int uid = userservice.createUser(user);
 		return "User added successfully with username" + uid; 
 	}
 	
 //	http://localhost:8980/get/1
 	@GetMapping(value="/get/{uid}",produces="application/json")
-	public User getUser(@PathVariable int uid) throws UserException {
-		User u=userservice.fetchUserById(uid);
+	public User getUser(@PathVariable int uid)   {
+		User u=null;
+		try {
+		 u=userservice.fetchUserById(uid);
+		}catch(UserException e) {
+		 throw new ResponseStatusException(HttpStatus.NOT_FOUND,e.getMessage());
+		}
 		return u; 
 	}
 	
