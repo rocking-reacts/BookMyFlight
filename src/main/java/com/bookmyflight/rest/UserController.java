@@ -1,5 +1,9 @@
 package com.bookmyflight.rest;
 
+import java.util.Base64;
+import java.util.Base64.Decoder;
+import java.util.Base64.Encoder;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,8 @@ import com.bookmyflight.bean.Login;
 import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.UserException;
 import com.bookmyflight.service.UserService;
+
+
 
 @RestController
 public class UserController {
@@ -34,17 +40,40 @@ public class UserController {
 //	}
 //	http://localhost:8980/createuser
 	@PostMapping(value = "/createuser",consumes = "application/json")
-	public String createUser(@RequestBody User user) throws UserException {
-		user.setUname(user.getUname());
-		int uid = userservice.createUser(user);
-		return "User added successfully with username" + uid; 
+	public String createUser(@RequestBody User user) {
+	
+		Encoder encoder=Base64.getEncoder();
+		String encrypt=encoder.encodeToString(user.getPassword().getBytes());
+		user.setPassword(encrypt);
+		int uid;
+		try {
+			uid = userservice.createUser(user);
+			return "User added successfully with user id" + uid; 
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ""+e.getMessage();
+		}
+		
 	}
 	
 //	http://localhost:8980/get/1
 	@GetMapping(value="/get/{uid}",produces="application/json")
-	public User getUser(@PathVariable int uid) throws UserException {
-		User u=userservice.fetchUserById(uid);
-		return u; 
+	public ResponseEntity<?> getUser(@PathVariable int uid)  {
+		
+		User u=null;
+		 try {
+			u=userservice.fetchUserById(uid);
+			Decoder decoder=Base64.getDecoder();
+			String password=new String(decoder.decode(u.getPassword()));
+			System.out.println("Password is"+password);
+			return new ResponseEntity<User>(u,HttpStatus.OK);
+		} catch (UserException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
+		}
+
 	}
 	
 	@PostMapping(value="/auth" ,consumes = "application/json",produces="application/json")

@@ -29,7 +29,6 @@ public class User {
 	@Column(name = "user_id")
 	private int userId;
 	
-	
 	private String username;
 	
 	@Column(name="user_fullname")
@@ -64,10 +63,11 @@ public class User {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public String getUname() {
+	
+	public String getUsername() {
 		return username;
 	}
-	public void setUname(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 	public String getFname() {
