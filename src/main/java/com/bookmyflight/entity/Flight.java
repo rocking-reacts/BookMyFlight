@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class Flight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int flightnumber;
+	private int flightNumber;
 	private String source;
 	private String destination;
 	@Column(name="travel_date")
@@ -31,10 +31,10 @@ public class Flight {
 	
 	
 	public int getFlightNumber() {
-		return flightnumber;
+		return flightNumber;
 	}
 	public void setFlightNumber(int flightNumber) {
-		this.flightnumber = flightNumber;
+		this.flightNumber = flightNumber;
 	}
 	public String getSource() {
 		return source;

@@ -32,7 +32,7 @@ public class Booking {
 	private int payStatus;
 	
 	@OneToOne
-	@JoinColumn(name = "flightNumber")
+	@JoinColumn(name = "flight_number")
 	private Flight flight;
 	
 	@OneToMany(mappedBy = "booking",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
