@@ -57,6 +57,14 @@ public class Passenger {
 	public void setAge(int age) {
 		this.age = age;
 	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
 	
 	
 }
