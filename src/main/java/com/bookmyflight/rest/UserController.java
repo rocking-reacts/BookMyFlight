@@ -31,7 +31,7 @@ public class UserController {
 
 //	{
 //	    "userId": 0,
-//	    "uname": "Polo",
+//	    "username": "Polo",
 //	    "fname": "Polo lo",
 //	    "email": "polo@gmail.com",
 //	    "phone": "9820212672",
@@ -76,6 +76,11 @@ public class UserController {
 
 	}
 	
+//	http://localhost:8980/auth
+//	{
+//		"username":"Polo",
+//		"password":"Polo"
+//	}
 	@PostMapping(value="/auth" ,consumes = "application/json",produces="application/json")
 	public ResponseEntity<?> authenticate(@RequestBody Login login,HttpSession session) {
 		

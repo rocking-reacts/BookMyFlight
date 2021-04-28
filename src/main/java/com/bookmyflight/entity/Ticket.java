@@ -10,11 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-/**
- * @author Ankita Yadav
- * Ticket Entity stores ticket information 
- * like ticket_id, ticket_number, username [User], booking_id [Booking], booking_date, total_pay
- */
 
 @Entity
 public class Ticket {
