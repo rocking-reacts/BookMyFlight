@@ -1,5 +1,7 @@
 package com.bookmyflight.service;
 
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,44 +31,50 @@ public class UserServiceImpl implements UserService {
 		User user_temp=null;
 		for(User u:users)
 		{
-			if(u.getUname().equals(user.getUname()) && (u.getEmail().equals(user.getEmail())) )
+			if(u.getUsername().equals(user.getUsername()) && (u.getEmail().equals(user.getEmail())) )
 				user_temp=u;
 		}
 		
-		if(user_temp!=null) {
-		userrepo.save(user);
-		return user.getUserId();
-		}else
+		if(user_temp==null) {
+			userrepo.save(user);
+			return user.getUserId();
+		}else {
 			throw new UserException("User already exist with userId " + user_temp.getUserId());
+		}
 	}
-
-	
 
 	@Override
 	public User fetchUserById(int user_id) throws UserException {
-		List<User> users=(List)fetchAllUsers();
-		User user_temp=null;
-		for(User u:users)
-		{
-			if(u.getUserId()==user_id)
-				user_temp=u;
-		}
-		if(user_temp!=null)
-			return userrepo.findById(user_id).get();
 		
-		else throw new UserException("User not found with the UserId " + user_id);
-				
+		List<User> users=(List)fetchAllUsers();
+		User user=null;
+		for(User u:users) {
+			if(u.getUserId()==user_id) {
+				user=u;
+			}
+		}
+		if(user!=null) {
+			return userrepo.findById(user_id).get();
+		}else {
+			throw new UserException("User not found with id"+user_id);
+		}
+		
+		
 	}
 
 	@Override
 	public User validate(Login login) {
-		User user=userrepo.findUser(login.getUsername(), login.getPassword());
+		// TODO Auto-generated method stub
+		Encoder encoder=Base64.getEncoder();
+		String encrypt=encoder.encodeToString(login.getPassword().getBytes());
+		User user=userrepo.findByUsernameAndPassword(login.getUsername(), encrypt);
 		return user;
 	}
-    
+	
 	@Override
 	public Collection<User> fetchAllUsers() {
 		List<User> users=userrepo.findAll();
 		return users;
 	}
+
 }

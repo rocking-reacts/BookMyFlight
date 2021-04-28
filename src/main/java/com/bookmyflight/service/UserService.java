@@ -3,7 +3,6 @@ package com.bookmyflight.service;
 import java.util.Collection;
 
 import com.bookmyflight.bean.Login;
-import com.bookmyflight.entity.Flight;
 import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.UserException;
 
@@ -15,5 +14,6 @@ public interface UserService {
 	 
 	 User validate(Login login);
 	
-     Collection<User> fetchAllUsers();
+	 public Collection<User> fetchAllUsers();
+	
 }
