@@ -48,6 +48,7 @@ public class FlightServiceImpl implements FlightService {
 	@Override
 	public Flight fetchFlight(String source, String destination, LocalDate scheduleDate) throws FlightException {
 		// TODO Auto-generated method stub
+		System.out.println(source + " "+ destination + " " +scheduleDate);
 		List<Flight> flights=(List)fetchAll();
 		Flight flight=null;
 		for(Flight f:flights) {

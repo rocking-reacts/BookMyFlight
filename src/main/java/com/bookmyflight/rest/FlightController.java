@@ -29,6 +29,17 @@ public class FlightController {
 	@Autowired
 	FlightService fservice;
 	
+//	http://localhost:8980/flight/add
+//	{
+//    "flightNumber": 0,
+//    "source": "Pune",
+//    "destination": "Gujart",
+//    "travelDate": "2021-05-01",
+//    "arrivalTime": "15:20:00",
+//    "departureTime": "16:30:00",
+//    "price": 2000.0,
+//    "availableSeats": 20
+//	}
 	@PostMapping(value = "/add",consumes = "application/json")
 	public String addFlight(@RequestBody Flight flight) {
 		try {
@@ -42,6 +53,7 @@ public class FlightController {
 		
 	}
 	
+//	http://localhost:8980/flight/fetchall
 	@GetMapping(value="/fetchall",produces="application/json")
 	public Collection<Flight> serachFlights(){
 		return fservice.fetchAll();	
