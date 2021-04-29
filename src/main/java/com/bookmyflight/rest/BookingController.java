@@ -1,8 +1,11 @@
 package com.bookmyflight.rest;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,11 +40,20 @@ public class BookingController {
 	
 	@PostMapping(value = "/booking", consumes = "application/json")
 	public String addBooking(@RequestBody Booking booking, @RequestParam String source, String destination, String date) throws FlightException {
-		LocalDate dt=LocalDate.parse(date);
-		Flight flight=flightservice.fetchFlight(source, destination, dt);
-		booking.setFlight(flight);
-		int bid = bookservice.addBooking(booking);
-		return "Booking done with id " + bid;
+		
+		if(booking.getFlight().getAvailableSeats()<=0) {
+			return "Seats are not available";
+		}else if(booking.getNumberOfSeatsToBook()>booking.getFlight().getAvailableSeats()) {
+			return "Only "+booking.getFlight().getAvailableSeats()+" are Available";
+		}else {
+			LocalDate dt=LocalDate.parse(date);
+			Flight flight=flightservice.fetchFlight(source, destination, dt);
+			flight.setAvailableSeats(booking.getFlight().getAvailableSeats()-booking.getNumberOfSeatsToBook());
+			flightservice.updateFlight(flight);
+			booking.setFlight(flight);
+			int bid = bookservice.addBooking(booking);
+			return "Booking done with id " + bid;
+		}
 	}
 	
 	/**
@@ -66,19 +78,35 @@ public class BookingController {
 	 * @return ticket number
 	 * controller method to add booking and ticket details in database and generate ticket
 	 */
-	@PostMapping(value = "/ticket/{userId}/{bookid}", consumes = "application/json")
-	public String createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid ) {
+	@PostMapping(value = "/ticket/{userId}/{bookid}", consumes = "application/json",produces = "application/json")
+	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid ) {
 		
 //		int bid = bookservice.addBooking(booking);
+		int pay_status=ticket.getBooking().getPayStatus();
+		double total_pay=ticket.getBooking().getFlight().getPrice()*ticket.getBooking().getNumberOfSeatsToBook();
+		if(pay_status==1) {
 		LocalDate date = LocalDate.now();
 		ticket.setBooking_date(date);
-		int tid = bookservice.generateTicket(ticket, userId, bookid);
-		return "Ticket generated for bookingid : " + bookid + "Ticket generated with id : " + tid + "Ticket generated for userid :" +userId ;
+		ticket.setTotal_pay(total_pay); 
+		Ticket ticket1 = bookservice.generateTicket(ticket, userId, bookid);
+		//return "Ticket generated for bookingid : " + bookid + "Ticket generated with id : " + tid + "Ticket generated for userid :" +userId ;
+		return new ResponseEntity<Ticket>(ticket1, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<String>("Payment failed, please book ticket again.",HttpStatus.NOT_FOUND);
+		}
 	}
 	
-//	@GetMapping
-//	public String getTicket(@PathVariable int tid) {
-//		return null;
+	@GetMapping(value="/getTickets/{uid}" ,produces = "application/json")
+	public List<Ticket> getAllTickets(@PathVariable int uid) {
+		bookservice.getTicket(uid);
+		return bookservice.getTicket(uid);
+		
+	}
+	
+//	@GetMapping(value = "/getTicket/{tid}" ,produces = "application/json")
+//	public Ticket getTicketById(@PathVariable int tid) {
 //		
+//		
+//		return null;
 //	}
 }
