@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bookmyflight.bean.ListPassenger;
 import com.bookmyflight.entity.Booking;
 import com.bookmyflight.entity.Flight;
 import com.bookmyflight.entity.Passenger;
@@ -41,14 +42,14 @@ public class BookingController {
 	@PostMapping(value = "/booking", consumes = "application/json")
 	public String addBooking(@RequestBody Booking booking, @RequestParam String source, String destination, String date) throws FlightException {
 		
-		if(booking.getFlight().getAvailableSeats()<=0) {
+		Flight flight = flightservice.fetchFlight(source, destination, LocalDate.parse(date));
+		
+		if(flight.getAvailableSeats()<=0) {
 			return "Seats are not available";
-		}else if(booking.getNumberOfSeatsToBook()>booking.getFlight().getAvailableSeats()) {
-			return "Only "+booking.getFlight().getAvailableSeats()+" are Available";
+		}else if(booking.getNumberOfSeatsToBook()>flight.getAvailableSeats()) {
+			return "Only "+flight.getAvailableSeats()+" are Available";
 		}else {
-			LocalDate dt=LocalDate.parse(date);
-			Flight flight=flightservice.fetchFlight(source, destination, dt);
-			flight.setAvailableSeats(booking.getFlight().getAvailableSeats()-booking.getNumberOfSeatsToBook());
+			flight.setAvailableSeats(flight.getAvailableSeats()-booking.getNumberOfSeatsToBook());
 			flightservice.updateFlight(flight);
 			booking.setFlight(flight);
 			int bid = bookservice.addBooking(booking);
@@ -64,10 +65,22 @@ public class BookingController {
 	 */
 	
 	
+//	@PostMapping(value = "/passenger/{bid}",  consumes = "application/json")
+//	public String addPassengers(@RequestBody Passenger passenger, @PathVariable int bid) {
+//		int pid = bookservice.addPassenger(passenger, bid);
+//		return "Passenger added with id : " + pid;
+//	}
+	
 	@PostMapping(value = "/passenger/{bid}",  consumes = "application/json")
-	public String addPassengers(@RequestBody Passenger passenger, @PathVariable int bid) {
-		int pid = bookservice.addPassenger(passenger, bid);
-		return "Passenger added with id : " + pid;
+	public String addPassengers(@RequestBody ListPassenger pass1, @PathVariable int bid) {
+//		int pid = bookservice.addPassenger(passenger, bid);
+		String s1 = "";
+		Booking booking=bookservice.getBookingById(bid);
+		for (int i = 0; i<booking.getNumberOfSeatsToBook(); i++) {
+			s1 += " : "+bookservice.addPassenger(pass1.getPass1().get(i), bid) ; 
+		}
+		
+		return "Passengers added with id's " + s1 ;
 	}
 	
 	/**
@@ -78,12 +91,14 @@ public class BookingController {
 	 * @return ticket number
 	 * controller method to add booking and ticket details in database and generate ticket
 	 */
+	
 	@PostMapping(value = "/ticket/{userId}/{bookid}", consumes = "application/json",produces = "application/json")
 	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid ) {
 		
 //		int bid = bookservice.addBooking(booking);
-		int pay_status=ticket.getBooking().getPayStatus();
-		double total_pay=ticket.getBooking().getFlight().getPrice()*ticket.getBooking().getNumberOfSeatsToBook();
+		Booking booking=bookservice.getBookingById(bookid);
+		int pay_status = booking.getPayStatus();
+		double total_pay=booking.getFlight().getPrice()*booking.getNumberOfSeatsToBook();
 		if(pay_status==1) {
 		LocalDate date = LocalDate.now();
 		ticket.setBooking_date(date);

@@ -15,4 +15,6 @@ public interface BookingService {
 	Ticket generateTicket(Ticket ticket, int userId, int bookingId);
 	
 	List<Ticket> getTicket(int uid);
+	
+	Booking getBookingById(int bid);
 }
