@@ -14,15 +14,19 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ManyToAny;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="booking")
+@SequenceGenerator(name = "booking_seq",sequenceName = "booking_seq",initialValue = 301)
 public class Booking {
 	@Id
-	@GeneratedValue(strategy =  GenerationType.AUTO)
+	@GeneratedValue(generator = "booking_seq",strategy=GenerationType.SEQUENCE)
 	@Column(name = "booking_id")
 	private int bookingId;
 	
@@ -35,6 +39,7 @@ public class Booking {
 	@JoinColumn(name = "flight_number")
 	private Flight flight;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "booking",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Passenger> passengers = new ArrayList<Passenger>();
 	

@@ -12,7 +12,9 @@ public interface BookingService {
 	
 	int addPassenger(Passenger passenger, int bookingId);
 	
-	int generateTicket(Ticket ticket, int userId, int bookingId);
+	Ticket generateTicket(Ticket ticket, int userId, int bookingId);
 	
-//	List<Ticket> getTicket(int ticketNumber);
+	List<Ticket> getTicket(int uid);
+	
+	Booking getBookingById(int bid);
 }
