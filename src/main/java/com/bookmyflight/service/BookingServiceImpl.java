@@ -38,7 +38,6 @@ public class BookingServiceImpl implements BookingService {
 	/**
 	 * this method saves the booking entity in the database
 	 */
-	
 	@Override
 	public int addBooking(Booking booking) {
 		brepo.save(booking);
@@ -82,12 +81,17 @@ public class BookingServiceImpl implements BookingService {
 		return tlist;
 	}
 
+	/**
+	 * this method saves the ticket entity in the database
+	 * ticket entity references user and booking entity
+	 */
 	@Override
 	public Booking getBookingById(int bid) {
 		
 		return brepo.findById(bid).get();
-	}
 
+	}
+	
 //	@Override
 //	public List<Ticket> getTicket(int ticketNumber) {
 //		List<Ticket> ticketArray = new ArrayList<Ticket>();
@@ -104,3 +108,4 @@ public class BookingServiceImpl implements BookingService {
 
 
 }
+
