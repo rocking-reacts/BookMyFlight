@@ -7,7 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * @author Shivani Jadon
@@ -16,16 +19,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "passenger")
+@SequenceGenerator(name = "passenger_seq",sequenceName = "passneger_seq",initialValue = 601)
 public class Passenger {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(generator = "passenegr_seq",strategy=GenerationType.SEQUENCE)
 	private int pid;
 	@Column(name = "pass_name")
 	private String pname;
 	private String gender;
 	private int age;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
@@ -56,6 +61,14 @@ public class Passenger {
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+
+	public Booking getBooking() {
+		return booking;
+	}
+
+	public void setBooking(Booking booking) {
+		this.booking = booking;
 	}
 	
 	

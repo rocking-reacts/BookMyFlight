@@ -1,5 +1,8 @@
 package com.bookmyflight.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +52,7 @@ public class BookingServiceImpl implements BookingService {
 	public int addPassenger(Passenger passenger, int bookingId) {
 		Booking booking = brepo.findById(bookingId).get();
 		booking.getPassengers().add(passenger);
+		passenger.setBooking(booking);
 		prepo.save(passenger);
 		return passenger.getPid();
 	}
@@ -58,14 +62,50 @@ public class BookingServiceImpl implements BookingService {
 	 * ticket entity references user and booking entity
 	 */
 	@Override
-	public int generateTicket(Ticket ticket, int userId, int bookingId) {
+	public Ticket generateTicket(Ticket ticket, int userId, int bookingId) {
 		Booking booking = brepo.findById(bookingId).get();
 		User user = urepo.findById(userId).get();
 		ticket.setBooking(booking);
 		ticket.setUser(user);
 	
 		trepo.save(ticket);
-		return ticket.getTicketNumber();
+		return ticket;
 	}
 
+	
+	@Override
+	public List<Ticket> getTicket(int uid) {
+		User user=urepo.findById(uid).get();
+		List<Ticket> tlist=trepo.findByUser(user);
+		tlist.forEach(System.out::println);
+		return tlist;
+	}
+
+	/**
+	 * this method saves the ticket entity in the database
+	 * ticket entity references user and booking entity
+	 */
+	@Override
+	public Booking getBookingById(int bid) {
+		
+		return brepo.findById(bid).get();
+
+	}
+	
+//	@Override
+//	public List<Ticket> getTicket(int ticketNumber) {
+//		List<Ticket> ticketArray = new ArrayList<Ticket>();
+//		List<Ticket> ticketList = trepo.findAll();
+//		Ticket ticket = trepo.findById(ticketNumber).get();
+//		int uid = ticket.getUser().getUserId();
+//		for (Ticket ticketL : ticketList) {
+//			if (ticketL.getUser().getUserId() == uid){
+//				ticketArray.add(ticketL);
+//			}
+//		}
+//		return ticketArray;
+//	}
+
+
 }
+
