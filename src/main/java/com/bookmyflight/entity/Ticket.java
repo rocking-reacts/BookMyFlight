@@ -2,6 +2,7 @@ package com.bookmyflight.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,13 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 
 @Entity
+@SequenceGenerator(name = "ticket_seq",sequenceName = "ticket_seq",initialValue = 1001)
 public class Ticket {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(generator = "ticket_seq",strategy=GenerationType.SEQUENCE)
 	@Column(name = "ticket_number")
 	private int ticketNumber;
 	
@@ -23,7 +26,7 @@ public class Ticket {
 	@JoinColumn(name = "user_id")
 	private User user;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 	

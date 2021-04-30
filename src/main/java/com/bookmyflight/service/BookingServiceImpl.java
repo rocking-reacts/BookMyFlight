@@ -63,15 +63,29 @@ public class BookingServiceImpl implements BookingService {
 	 * ticket entity references user and booking entity
 	 */
 	@Override
-	public int generateTicket(Ticket ticket, int userId, int bookingId) {
+	public Ticket generateTicket(Ticket ticket, int userId, int bookingId) {
 		Booking booking = brepo.findById(bookingId).get();
-//		booking.getPayStatus();
 		User user = urepo.findById(userId).get();
 		ticket.setBooking(booking);
 		ticket.setUser(user);
 	
 		trepo.save(ticket);
-		return ticket.getTicketNumber();
+		return ticket;
+	}
+
+	
+	@Override
+	public List<Ticket> getTicket(int uid) {
+		User user=urepo.findById(uid).get();
+		List<Ticket> tlist=trepo.findByUser(user);
+		tlist.forEach(System.out::println);
+		return tlist;
+	}
+
+	@Override
+	public Booking getBookingById(int bid) {
+		
+		return brepo.findById(bid).get();
 	}
 
 //	@Override
