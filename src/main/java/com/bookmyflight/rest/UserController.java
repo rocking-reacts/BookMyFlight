@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ import com.bookmyflight.exception.UserException;
 import com.bookmyflight.service.UserService;
 
 
-
+@CrossOrigin()
 @RestController
 public class UserController {
 	
@@ -81,12 +82,14 @@ public class UserController {
 //		"username":"Polo",
 //		"password":"Polo"
 //	}
-	@PostMapping(value="/auth" ,consumes = "application/json",produces="application/json")
-	public ResponseEntity<?> authenticate(@RequestBody Login login,HttpSession session) {
-		
+	@GetMapping(value="/auth/{username}/{password}" ,produces="application/json")
+	public ResponseEntity<?> authenticate(@PathVariable String username,@PathVariable String password) {
+		Login login=new Login();
+		login.setUsername(username);
+		login.setPassword(password);
 		User user=userservice.validate(login);
 		if(user!=null) {
-			session.setAttribute("USER", user);
+			user.setPassword(password);
 			return new ResponseEntity<User>(user, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("Invalid username or password",HttpStatus.NOT_FOUND);

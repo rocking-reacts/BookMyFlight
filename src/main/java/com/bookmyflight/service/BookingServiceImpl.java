@@ -72,13 +72,18 @@ public class BookingServiceImpl implements BookingService {
 		trepo.save(ticket);
 		return ticket;
 	}
+	
+	@Override
+	public void updateBooking(Booking bookPay) {
+		brepo.save(bookPay);
+	}
 
 	
 	@Override
 	public List<Ticket> getTicket(int uid) {
 		User user=urepo.findById(uid).get();
 		List<Ticket> tlist=trepo.findByUser(user);
-		tlist.forEach(System.out::println);
+//		tlist.forEach(System.out::println);
 		return tlist;
 	}
 
@@ -87,6 +92,8 @@ public class BookingServiceImpl implements BookingService {
 		
 		return brepo.findById(bid).get();
 	}
+
+	
 
 //	@Override
 //	public List<Ticket> getTicket(int ticketNumber) {

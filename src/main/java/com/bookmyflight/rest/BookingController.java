@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import com.bookmyflight.service.FlightService;
  * @author Shivani Jadon
  * Controller for Booking and ticket generation
  */
+@CrossOrigin()
 @RestController
 @RequestMapping("/book")
 public class BookingController {
@@ -53,7 +55,7 @@ public class BookingController {
 			flightservice.updateFlight(flight);
 			booking.setFlight(flight);
 			int bid = bookservice.addBooking(booking);
-			return "Booking done with id " + bid;
+			return "" + bid;
 		}
 	}
 	
@@ -92,20 +94,23 @@ public class BookingController {
 	 * controller method to add booking and ticket details in database and generate ticket
 	 */
 	
-	@PostMapping(value = "/ticket/{userId}/{bookid}", consumes = "application/json",produces = "application/json")
-	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid ) {
+	@PostMapping(value = "/ticket/{userId}/{bookid}/{pay}", consumes = "application/json",produces = "application/json")
+	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid, @PathVariable int pay ) {
 		
 //		int bid = bookservice.addBooking(booking);
 		Booking booking=bookservice.getBookingById(bookid);
+		booking.setPayStatus(pay);
+		bookservice.updateBooking(booking);
+		
 		int pay_status = booking.getPayStatus();
 		double total_pay=booking.getFlight().getPrice()*booking.getNumberOfSeatsToBook();
 		if(pay_status==1) {
-		LocalDate date = LocalDate.now();
-		ticket.setBooking_date(date);
-		ticket.setTotal_pay(total_pay); 
-		Ticket ticket1 = bookservice.generateTicket(ticket, userId, bookid);
-		//return "Ticket generated for bookingid : " + bookid + "Ticket generated with id : " + tid + "Ticket generated for userid :" +userId ;
-		return new ResponseEntity<Ticket>(ticket1, HttpStatus.OK);
+			LocalDate date = LocalDate.now();
+			ticket.setBooking_date(date);
+			ticket.setTotal_pay(total_pay); 
+			Ticket ticket1 = bookservice.generateTicket(ticket, userId, bookid);
+			//return "Ticket generated for bookingid : " + bookid + "Ticket generated with id : " + tid + "Ticket generated for userid :" +userId ;
+			return new ResponseEntity<Ticket>(ticket1, HttpStatus.OK);
 		}else {
 			return new ResponseEntity<String>("Payment failed, please book ticket again.",HttpStatus.NOT_FOUND);
 		}
