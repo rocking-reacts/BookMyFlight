@@ -17,4 +17,6 @@ public interface BookingService {
 	List<Ticket> getTicket(int uid);
 	
 	Booking getBookingById(int bid);
+	
+	void updateBooking(Booking bookPay);
 }
