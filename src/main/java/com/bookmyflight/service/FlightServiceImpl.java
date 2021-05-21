@@ -25,8 +25,9 @@ public class FlightServiceImpl implements FlightService {
 		List<Flight> flights=(List)fetchAll();
 		Flight flight_temp=null;
 		for(Flight f:flights) {
-			if((f.getSource().equals(flight.getSource())&&f.getDestination().equals(flight.getDestination())) 
-					&&f.getTravelDate().equals(flight.getTravelDate()) ) {
+			if( f.getSource().equals(flight.getSource()) && f.getDestination().equals(flight.getDestination()) 
+					&& f.getTravelDate().equals(flight.getTravelDate()) && f.getArrivalTime().equals(flight.getArrivalTime())
+					&& f.getDepartureTime().equals(flight.getDepartureTime()) ) {
 				flight_temp=f;
 			}
 		}
@@ -64,6 +65,20 @@ public class FlightServiceImpl implements FlightService {
 		}
 		
 	}
+	
+	@Override
+	public Collection<Flight> fetchFlightsOnCondition(String source, String destination, LocalDate scheduleDate)
+			throws FlightException {
+		List<Flight> flights;
+		flights = frepo.findByCondition(source, destination, scheduleDate);
+		if(flights!=null) {
+			return flights;
+		}else {
+			throw new FlightException("Flights not found with provided details");
+		}
+		
+	}
+
 
 	@Transactional  
 	public int updateFlight(Flight flight) throws FlightException {
@@ -95,8 +110,10 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Transactional
-	public void removeFlight(Flight flight) {
-		frepo.deleteById(flight.getFlightNumber());
+	@Override
+	public void removeFlight(int flightNumber) {
+		// TODO Auto-generated method stub
+		frepo.deleteById(flightNumber);
 		System.out.println("Deleted flight");
 	}
 

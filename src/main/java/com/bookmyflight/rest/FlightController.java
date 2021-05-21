@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.FlightException;
 import com.bookmyflight.service.FlightService;
 
+@CrossOrigin()
 @EnableTransactionManagement
 @RestController
 @RequestMapping("/flight")
@@ -48,14 +50,14 @@ public class FlightController {
 	@PostMapping(value = "/add",consumes = "application/json")
 	public String addFlight(@RequestBody Flight flight, HttpSession session) {
 		try {
-			User user = (User) session.getAttribute("USER");
-			
-			if(user != null && user.getIsadmin() == 1) {
+//			User user = (User) session.getAttribute("USER");
+//			
+//			if(user != null && user.getIsadmin() == 1) {
 				int id=fservice.addFlight(flight);
 				return "Flight added with flight number "+id;
-			}else {
-				return "Only admin can add flight";
-			}
+//			}else {
+//				return "Only admin can add flight";
+//			}
 			
 		} catch (FlightException e) {
 			e.printStackTrace();
@@ -71,13 +73,13 @@ public class FlightController {
 	}
 	
 	@GetMapping(value="/fetch",produces="application/json")  
-	public ResponseEntity<?> serachFlight(@RequestParam String source,@RequestParam String destination
+	public ResponseEntity<?> searchFlight(@RequestParam String source,@RequestParam String destination
 			,@RequestParam String date) {
 		try {
 			
 			LocalDate dt=LocalDate.parse(date);
-			Flight flight=fservice.fetchFlight(source, destination, dt);
-			return new ResponseEntity<Flight>(flight,HttpStatus.OK);
+			Collection<Flight> flights = fservice.fetchFlightsOnCondition(source, destination, dt);
+			return new ResponseEntity< Collection<Flight> >(flights,HttpStatus.OK);
 			
 		} catch (FlightException e) {
 			
@@ -86,31 +88,44 @@ public class FlightController {
 		}
 	}
 	
-	@DeleteMapping(value="/remove",produces="application/json")
-	public String removeFlight(@RequestBody Flight flight, HttpSession session) {
-		User user = (User) session.getAttribute("USER");
-		
-		if(user != null && user.getIsadmin() == 1) {
-			fservice.removeFlight(flight);
-			return "flight removed with id"+flight.getFlightNumber();
-		} else {
-			return "Only admin can remove flight";
-		}
+//	@DeleteMapping(value="/remove",produces="application/json")
+//	public String removeFlight(@RequestBody Flight flight, HttpSession session) {
+////		User user = (User) session.getAttribute("USER");
+////		
+////		if(user != null && user.getIsadmin() == 1) {
+//			fservice.removeFlight(flight);
+//			return "flight removed with id"+flight.getFlightNumber();
+////		} else {
+////			return "Only admin can remove flight";
+////		}
+//		
+//	}
+	
+	@DeleteMapping(value="/remove/{fid}")
+	public String removeFlight(@PathVariable int fid, HttpSession session) {
+//		User user = (User) session.getAttribute("USER");
+//		
+//		if(user != null && user.getIsadmin() == 1) {
+			fservice.removeFlight(fid);
+			return "flight removed with id" + fid;
+//		} else {
+//			return "Only admin can remove flight";
+//		}
 		
 	}
 	
 	@PutMapping(value="/update",produces="application/json")
 	public String updateFlight(@RequestBody Flight flight, HttpSession session) {
 		try {
-			User user = (User) session.getAttribute("USER");
-			
-			if(user != null && user.getIsadmin() == 1) {
+//			User user = (User) session.getAttribute("USER");
+//			
+//			if(user != null && user.getIsadmin() == 1) {
 				int id=fservice.updateFlight(flight);
 				return "Flight updated with id "+id;
-			} else {
-				return "Only admin can remove flight";
-			}
-			
+//			} else {
+//				return "Only admin can remove flight";
+//			}
+//			
 		} catch (FlightException e) {
 			
 			e.printStackTrace();

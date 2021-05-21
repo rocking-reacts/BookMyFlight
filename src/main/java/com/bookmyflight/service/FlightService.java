@@ -14,8 +14,11 @@ public interface FlightService {
 	
 	 Flight fetchFlight(String source, String destination, LocalDate scheduleDate) 
 			throws FlightException;
+	 
+	 Collection<Flight> fetchFlightsOnCondition(String source, String destination, LocalDate scheduleDate) 
+				throws FlightException;
 	
 	 int updateFlight(Flight flight) throws FlightException; //seatnotavailableexception
 	 
-	 void removeFlight(Flight flight) ;
+	 void removeFlight(int flightNumber);
 }
