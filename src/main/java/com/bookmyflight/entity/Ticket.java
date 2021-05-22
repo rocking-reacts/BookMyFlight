@@ -14,7 +14,7 @@ import javax.persistence.SequenceGenerator;
 
 
 @Entity
-@SequenceGenerator(name = "ticket_seq",sequenceName = "ticket_seq",initialValue = 1001)
+@SequenceGenerator(name = "ticket_seq",sequenceName = "ticket_seq",initialValue = 5001)
 public class Ticket {
 	
 	@Id

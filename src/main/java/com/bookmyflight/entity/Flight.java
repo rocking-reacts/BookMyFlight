@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="flight")
-@SequenceGenerator(name = "flight_seq",sequenceName = "flight_seq",initialValue = 101)
+@SequenceGenerator(name = "flight_seq",sequenceName = "flight_seq",initialValue = 1001)
 public class Flight {
 	@Id
 	@GeneratedValue(generator = "flight_seq",strategy=GenerationType.SEQUENCE)

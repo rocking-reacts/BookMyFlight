@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="booking")
-@SequenceGenerator(name = "booking_seq",sequenceName = "booking_seq",initialValue = 301)
+@SequenceGenerator(name = "booking_seq",sequenceName = "booking_seq",initialValue = 2001)
 public class Booking {
 	@Id
 	@GeneratedValue(generator = "booking_seq",strategy=GenerationType.SEQUENCE)

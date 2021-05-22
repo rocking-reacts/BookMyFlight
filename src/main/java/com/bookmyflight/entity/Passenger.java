@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
  */
 @Entity
 @Table(name = "passenger")
-@SequenceGenerator(name = "passenger_seq",sequenceName = "passneger_seq",initialValue = 601)
+@SequenceGenerator(name = "passenger_seq",sequenceName = "passneger_seq",initialValue = 4001)
 public class Passenger {
 
 	@Id
