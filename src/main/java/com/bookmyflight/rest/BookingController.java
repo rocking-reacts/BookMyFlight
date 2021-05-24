@@ -54,6 +54,7 @@ public class BookingController {
 			flight.setAvailableSeats(flight.getAvailableSeats()-booking.getNumberOfSeatsToBook());
 			flightservice.updateFlight(flight);
 			booking.setFlight(flight);
+			booking.setBookingDate(LocalDate.now());
 			int bid = bookservice.addBooking(booking);
 			return "" + bid;
 		}

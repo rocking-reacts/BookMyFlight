@@ -1,5 +1,6 @@
 package com.bookmyflight.entity;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Booking {
 	private int numberOfSeatsToBook;
 	
 	private int payStatus;
+	private LocalDate bookingDate;
 	
 	@OneToOne
 	@JoinColumn(name = "flight_number")
@@ -73,6 +75,12 @@ public class Booking {
 	}
 	public void setPassengers(List<Passenger> passengers) {
 		this.passengers = passengers;
+	}
+	public LocalDate getBookingDate() {
+		return bookingDate;
+	}
+	public void setBookingDate(LocalDate bookingDate) {
+		this.bookingDate = bookingDate;
 	}
 	
 	
