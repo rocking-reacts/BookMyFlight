@@ -26,6 +26,14 @@ import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.FlightException;
 import com.bookmyflight.service.FlightService;
 
+/**
+ * 
+ * @author Shivani
+ * @author Shivam
+ * @author Ankita
+ *
+ */
+
 @CrossOrigin()
 @EnableTransactionManagement
 @RestController
@@ -35,29 +43,13 @@ public class FlightController {
 	@Autowired
 	FlightService fservice;
 	
-//	http://localhost:8980/flight/add
-//	{
-//    "flightNumber": 0,
-//    "source": "Pune",
-//    "destination": "Gujart",
-//    "travelDate": "2021-05-01",
-//    "arrivalTime": "15:20:00",
-//    "departureTime": "16:30:00",
-//    "price": 2000.0,
-//    "availableSeats": 20
-//	}
 
+	//Post request for adding flight
 	@PostMapping(value = "/add",consumes = "application/json")
 	public String addFlight(@RequestBody Flight flight, HttpSession session) {
-		try {
-//			User user = (User) session.getAttribute("USER");
-//			
-//			if(user != null && user.getIsadmin() == 1) {
+		try {		
 				int id=fservice.addFlight(flight);
 				return "Flight added with flight number "+id;
-//			}else {
-//				return "Only admin can add flight";
-//			}
 			
 		} catch (FlightException e) {
 			e.printStackTrace();
@@ -66,12 +58,13 @@ public class FlightController {
 		
 	}
 	
-//	http://localhost:8980/flight/fetchall
+	//Get request to fetch all the flights
 	@GetMapping(value="/fetchall",produces="application/json")
 	public Collection<Flight> serachFlights(){
 		return fservice.fetchAll();	
 	}
 	
+	//Get request for searching flight based on source, destination and date
 	@GetMapping(value="/fetch",produces="application/json")  
 	public ResponseEntity<?> searchFlight(@RequestParam String source,@RequestParam String destination
 			,@RequestParam String date) {
@@ -88,44 +81,25 @@ public class FlightController {
 		}
 	}
 	
-//	@DeleteMapping(value="/remove",produces="application/json")
-//	public String removeFlight(@RequestBody Flight flight, HttpSession session) {
-////		User user = (User) session.getAttribute("USER");
-////		
-////		if(user != null && user.getIsadmin() == 1) {
-//			fservice.removeFlight(flight);
-//			return "flight removed with id"+flight.getFlightNumber();
-////		} else {
-////			return "Only admin can remove flight";
-////		}
-//		
-//	}
-	
+
+	//Delete requset to remove flight
 	@DeleteMapping(value="/remove/{fid}")
 	public String removeFlight(@PathVariable int fid, HttpSession session) {
-//		User user = (User) session.getAttribute("USER");
-//		
-//		if(user != null && user.getIsadmin() == 1) {
+
 			fservice.removeFlight(fid);
 			return "flight removed with id" + fid;
-//		} else {
-//			return "Only admin can remove flight";
-//		}
+
 		
 	}
 	
+	//Put request to update flight
 	@PutMapping(value="/update",produces="application/json")
 	public String updateFlight(@RequestBody Flight flight, HttpSession session) {
 		try {
-//			User user = (User) session.getAttribute("USER");
-//			
-//			if(user != null && user.getIsadmin() == 1) {
+
 				int id=fservice.updateFlight(flight);
 				return "Flight updated with id "+id;
-//			} else {
-//				return "Only admin can remove flight";
-//			}
-//			
+			
 		} catch (FlightException e) {
 			
 			e.printStackTrace();

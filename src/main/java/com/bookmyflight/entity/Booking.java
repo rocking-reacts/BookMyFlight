@@ -21,6 +21,13 @@ import org.hibernate.annotations.ManyToAny;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+/**
+ * 
+ * @author Shivani
+ * Description: Store booking details
+ *
+ */
+
 @Entity
 @Table(name="booking")
 @SequenceGenerator(name = "booking_seq",sequenceName = "booking_seq",initialValue = 2001)
@@ -35,10 +42,14 @@ public class Booking {
 	
 	private int payStatus;
 	
+	/* One booking remembers one flight
+	Parent of Flight entity*/
 	@OneToOne
-	@JoinColumn(name = "flight_number")
+	@JoinColumn(name = "flight_number")		
 	private Flight flight;
 	
+	/*One booking remembers multiple passengers
+	Parent of Passenger entity*/
 	@JsonManagedReference
 	@OneToMany(mappedBy = "booking",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	private List<Passenger> passengers = new ArrayList<Passenger>();

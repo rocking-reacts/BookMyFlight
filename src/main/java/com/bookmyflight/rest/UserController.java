@@ -21,7 +21,12 @@ import com.bookmyflight.entity.User;
 import com.bookmyflight.exception.UserException;
 import com.bookmyflight.service.UserService;
 
-
+/**
+ * 
+ * @author Ankita
+ * @author Shivam
+ * 
+ */
 @CrossOrigin()
 @RestController
 public class UserController {
@@ -30,16 +35,7 @@ public class UserController {
 	private UserService userservice;
 	
 
-//	{
-//	    "userId": 0,
-//	    "username": "Polo",
-//	    "fname": "Polo lo",
-//	    "email": "polo@gmail.com",
-//	    "phone": "9820212672",
-//	    "isadmin": 0,
-//	    "password": "Polo"
-//	}
-//	http://localhost:8980/createuser
+	//Post request on user body for adding user in the database
 	@PostMapping(value = "/createuser",consumes = "application/json")
 	public String createUser(@RequestBody User user) {
 	
@@ -58,7 +54,7 @@ public class UserController {
 		
 	}
 	
-//	http://localhost:8980/get/1
+	//Get request to fetch user based on user id
 	@GetMapping(value="/get/{uid}",produces="application/json")
 	public ResponseEntity<?> getUser(@PathVariable int uid)  {
 		
@@ -70,18 +66,14 @@ public class UserController {
 			System.out.println("Password is"+password);
 			return new ResponseEntity<User>(u,HttpStatus.OK);
 		} catch (UserException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
 		}
 
 	}
 	
-//	http://localhost:8980/auth
-//	{
-//		"username":"Polo",
-//		"password":"Polo"
-//	}
+	//Get request for authenticating user
 	@GetMapping(value="/auth/{username}/{password}" ,produces="application/json")
 	public ResponseEntity<?> authenticate(@PathVariable String username,@PathVariable String password) {
 		Login login=new Login();
@@ -96,6 +88,7 @@ public class UserController {
 		}
 	}
 	
+	//Get request for logging out user
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();	//destroy the session

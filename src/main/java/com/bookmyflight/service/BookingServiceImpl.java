@@ -17,7 +17,9 @@ import com.bookmyflight.repo.UserRepository;
 
 
 /**
- * @author Shivani Jadon
+ * @author Shivani 
+ * @author Ankita
+ * @author Shivam
  * Service to add passenger, booking and ticket details in database
  */
 @Service
@@ -73,41 +75,25 @@ public class BookingServiceImpl implements BookingService {
 		return ticket;
 	}
 	
+	//this method changes the pay status of booking 
 	@Override
 	public void updateBooking(Booking bookPay) {
 		brepo.save(bookPay);
 	}
 
-	
+	//this method retrieves all the tickets based on user id
 	@Override
 	public List<Ticket> getTicket(int uid) {
 		User user=urepo.findById(uid).get();
 		List<Ticket> tlist=trepo.findByUser(user);
-//		tlist.forEach(System.out::println);
 		return tlist;
 	}
 
+	//this method retrieves booking details based on booking id 
 	@Override
 	public Booking getBookingById(int bid) {
 		
 		return brepo.findById(bid).get();
 	}
-
-	
-
-//	@Override
-//	public List<Ticket> getTicket(int ticketNumber) {
-//		List<Ticket> ticketArray = new ArrayList<Ticket>();
-//		List<Ticket> ticketList = trepo.findAll();
-//		Ticket ticket = trepo.findById(ticketNumber).get();
-//		int uid = ticket.getUser().getUserId();
-//		for (Ticket ticketL : ticketList) {
-//			if (ticketL.getUser().getUserId() == uid){
-//				ticketArray.add(ticketL);
-//			}
-//		}
-//		return ticketArray;
-//	}
-
 
 }

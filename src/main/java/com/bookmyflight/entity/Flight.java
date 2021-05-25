@@ -13,6 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author Shivam
+ * Description: Store the details of Flight
+ */
 @Entity
 @Table(name="flight")
 @SequenceGenerator(name = "flight_seq",sequenceName = "flight_seq",initialValue = 1001)

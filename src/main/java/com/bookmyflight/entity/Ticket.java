@@ -12,7 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-
+/**
+ * 
+ * @author Ankita
+ * Description: Store ticket details, Booking id and user id
+ *
+ */
 @Entity
 @SequenceGenerator(name = "ticket_seq",sequenceName = "ticket_seq",initialValue = 5001)
 public class Ticket {
@@ -22,10 +27,12 @@ public class Ticket {
 	@Column(name = "ticket_number")
 	private int ticketNumber;
 	
+	//One ticket remembers its user
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 	
+	//One ticket remembers its booking
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "booking_id")
 	private Booking booking;

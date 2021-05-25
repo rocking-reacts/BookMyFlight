@@ -17,7 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
- * @author Sahithi Kondeti
+ * @author Sahithi 
  * User entity stores user information
  * Like User name,User Fullname, User phone number and User email.
  */

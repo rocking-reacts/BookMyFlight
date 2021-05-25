@@ -27,7 +27,9 @@ import com.bookmyflight.service.FlightService;
 
 
 /**
- * @author Shivani Jadon
+ * @author Shivam
+ * @author Ankita
+ * @author Shivani
  * Controller for Booking and ticket generation
  */
 @CrossOrigin()
@@ -41,6 +43,7 @@ public class BookingController {
 	@Autowired
 	private FlightService flightservice;
 	
+	//Post requset for add booking
 	@PostMapping(value = "/booking", consumes = "application/json")
 	public String addBooking(@RequestBody Booking booking, @RequestParam String source, String destination, String date) throws FlightException {
 		
@@ -59,20 +62,7 @@ public class BookingController {
 		}
 	}
 	
-	/**
-	 * @param passenger
-	 * @param bid
-	 * @return passenger id
-	 * controller method to add passsengers in database
-	 */
-	
-	
-//	@PostMapping(value = "/passenger/{bid}",  consumes = "application/json")
-//	public String addPassengers(@RequestBody Passenger passenger, @PathVariable int bid) {
-//		int pid = bookservice.addPassenger(passenger, bid);
-//		return "Passenger added with id : " + pid;
-//	}
-	
+	//Post request for adding passengers for booking id
 	@PostMapping(value = "/passenger/{bid}",  consumes = "application/json")
 	public String addPassengers(@RequestBody ListPassenger pass1, @PathVariable int bid) {
 //		int pid = bookservice.addPassenger(passenger, bid);
@@ -85,15 +75,8 @@ public class BookingController {
 		return "Passengers added with id's " + s1 ;
 	}
 	
-	/**
-	 * @param booking
-	 * @param userId
-	 * @param ticket
-	 * @param user
-	 * @return ticket number
-	 * controller method to add booking and ticket details in database and generate ticket
-	 */
-	
+
+	//Post request for generating ticket for user id and booking id
 	@PostMapping(value = "/ticket/{userId}/{bookid}/{pay}", consumes = "application/json",produces = "application/json")
 	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid, @PathVariable int pay ) {
 		
@@ -116,6 +99,7 @@ public class BookingController {
 		}
 	}
 	
+	//Get request for fetching tickets for user
 	@GetMapping(value="/getTickets/{uid}" ,produces = "application/json")
 	public List<Ticket> getAllTickets(@PathVariable int uid) {
 		bookservice.getTicket(uid);
@@ -123,10 +107,5 @@ public class BookingController {
 		
 	}
 	
-//	@GetMapping(value = "/getTicket/{tid}" ,produces = "application/json")
-//	public Ticket getTicketById(@PathVariable int tid) {
-//		
-//		
-//		return null;
-//	}
+
 }

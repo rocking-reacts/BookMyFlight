@@ -13,6 +13,13 @@ import com.bookmyflight.entity.Flight;
 import com.bookmyflight.exception.FlightException;
 import com.bookmyflight.repo.FlightRepository;
 
+/**
+ * 
+ * @author Shivani
+ * @author Shivam
+ * Description: CRUD operations on Flight 
+ */
+
 @Repository
 public class FlightServiceImpl implements FlightService {
 	@Autowired

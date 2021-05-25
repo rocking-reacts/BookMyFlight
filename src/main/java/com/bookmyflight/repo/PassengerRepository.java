@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.bookmyflight.entity.Passenger;
 
 /**
- * @author Shivani Jadon
- * Bean for Passenger entity
+ * @author Sai Likhita
+ * 
  */
 public interface PassengerRepository extends JpaRepository<Passenger, Integer> {
 

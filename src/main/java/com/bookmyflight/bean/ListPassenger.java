@@ -4,6 +4,13 @@ import java.util.List;
 
 import com.bookmyflight.entity.Passenger;
 
+/**
+ * 
+ * @author Ankita 
+ * @author Shivam
+ * Description: Storing the list of json objects
+ */
+
 public class ListPassenger {
 	List<Passenger> pass1;
 

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * @author Shivani Jadon
+ * @author Sai likhita
  * Passenger entity stores passenger information
  * Like passenger id, name, gender and age.
  */
@@ -30,6 +30,9 @@ public class Passenger {
 	private String gender;
 	private int age;
 	
+	/*Many passengers are added to one booking
+	 *Child of Booking entity  
+	 */
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")

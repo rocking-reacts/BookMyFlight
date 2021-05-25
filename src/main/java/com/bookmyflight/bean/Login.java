@@ -1,5 +1,10 @@
 package com.bookmyflight.bean;
 
+/**
+ * 
+ * @author Shivam
+ * Description: Authentication of user and admin
+ */
 public class Login {
 	private String username;
 	private String password;

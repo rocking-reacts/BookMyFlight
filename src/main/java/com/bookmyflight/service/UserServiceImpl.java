@@ -14,9 +14,10 @@ import com.bookmyflight.exception.UserException;
 import com.bookmyflight.repo.UserRepository;
 
 /**
- * @author Sahithi Kondeti
+ * @author Sahithi 
+ * @author Shivam
  * UserServiceImpl will perform operations:
- * Like creating User and fetching the user by user name.
+ * Like creating User, fetching the user by user id and validate user .
  */
 
 @Service
@@ -62,6 +63,7 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	// this method authenticates user based on Login bean
 	@Override
 	public User validate(Login login) {
 		// TODO Auto-generated method stub
