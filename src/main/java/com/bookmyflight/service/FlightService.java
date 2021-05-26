@@ -21,4 +21,6 @@ public interface FlightService {
 	 int updateFlight(Flight flight) throws FlightException; //seatnotavailableexception
 	 
 	 void removeFlight(int flightNumber);
+	 
+	 Flight fetchById(int fid);
 }

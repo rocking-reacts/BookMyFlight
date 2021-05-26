@@ -45,10 +45,11 @@ public class BookingController {
 	
 	//Post requset for add booking
 	@PostMapping(value = "/booking", consumes = "application/json")
-	public String addBooking(@RequestBody Booking booking, @RequestParam String source, String destination, String date) throws FlightException {
+	public String addBooking(@RequestBody Booking booking, @RequestParam int fid, String source, String destination, String date) throws FlightException {
 		
-		Flight flight = flightservice.fetchFlight(source, destination, LocalDate.parse(date));
+//		Flight flight = flightservice.fetchFlight(source, destination, LocalDate.parse(date));
 		
+		Flight flight = flightservice.fetchById(fid);
 		if(flight.getAvailableSeats()<=0) {
 			return "Seats are not available";
 		}else if(booking.getNumberOfSeatsToBook()>flight.getAvailableSeats()) {

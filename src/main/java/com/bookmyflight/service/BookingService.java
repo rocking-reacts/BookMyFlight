@@ -19,4 +19,5 @@ public interface BookingService {
 	Booking getBookingById(int bid);
 	
 	void updateBooking(Booking bookPay);
+	
 }

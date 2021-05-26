@@ -124,4 +124,10 @@ public class FlightServiceImpl implements FlightService {
 		System.out.println("Deleted flight");
 	}
 
+	@Override
+	public Flight fetchById(int fid) {
+		Flight flight = frepo.findById(fid).get();
+		return flight;
+	}
+
 }
